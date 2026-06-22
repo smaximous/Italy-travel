@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Italy Luxury Travel Guide — Cinematic Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f1ea;
+      --surface: rgba(255,255,255,0.78);
+      --surface-strong: #ffffff;
+      --text: #241c18;
+      --muted: #685852;
+      --line: rgba(36,28,24,0.08);
+      --accent: #b24f34;
+      --accent-2: #e39c56;
+      --accent-3: #567c7a;
+      --shadow: 0 18px 50px rgba(52, 27, 14, 0.12);
+      --shadow-lg: 0 26px 70px rgba(42, 21, 11, 0.18);
+      --glass: rgba(255,255,255,0.14);
+      --glass-border: rgba(255,255,255,0.2);
+      --nav-bg: rgba(247,241,234,0.76);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(227,156,86,0.12), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(86,124,122,0.10), transparent 24%),
+        linear-gradient(180deg, #fbf6f1 0%, #f4ede7 100%);
+      overflow-x: hidden;
+    }
+
+    .progress { position: fixed; top:0; left:0; height:4px; width:0; z-index:3000; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 2000;
+      background: var(--nav-bg); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.45);
+    }
+    .nav-wrap {
+      max-width: 1320px; margin:0 auto; padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap: wrap;
+    }
+    .brand {
+      display:flex; align-items:center; gap:14px; font-weight:800; letter-spacing:0.02em;
+    }
+    .brand-badge {
+      width:42px; height:42px; border-radius:16px; display:grid; place-items:center;
+      color:white; font-size:20px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: var(--shadow);
+    }
+    .brand small { display:block; color: var(--muted); font-weight:600; }
+    .nav-links { display:flex; gap:8px; flex-wrap:wrap; }
+    .nav-link {
+      color: var(--text); text-decoration:none; font-size:14px; font-weight:700;
+      padding:10px 14px; border-radius:999px; transition: .25s ease;
+    }
+    .nav-link:hover, .nav-link.active { background: rgba(178,79,52,0.10); color: var(--accent); }
+    .theme-btn {
+      border:0; cursor:pointer; background:white; color:var(--text); padding:12px 14px; border-radius:999px; box-shadow: var(--shadow);
+      font-weight:800;
+    }
+
+    .hero {
+      min-height: 100svh; position:relative; color:white;
+      display:grid; align-items:end; padding: 110px 24px 50px;
+      background:
+        linear-gradient(135deg, rgba(8,9,12,0.56), rgba(30,18,13,0.24)),
+        url('https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=2000&q=80') center/cover;
+    }
+    .hero::after {
+      content:""; position:absolute; left:0; right:0; bottom:0; height:180px;
+      background: linear-gradient(180deg, transparent, rgba(247,241,234,0.95));
+      pointer-events:none;
+    }
+    .hero-inner {
+      position:relative; z-index:1; max-width:1320px; margin:0 auto; width:100%;
+      display:grid; grid-template-columns: 1.15fr .85fr; gap:28px; align-items:end;
+    }
+    .glass {
+      backdrop-filter: blur(18px);
+      background: var(--glass); border:1px solid var(--glass-border); box-shadow: var(--shadow-lg);
+      border-radius: 28px;
+    }
+    .hero-copy { padding:36px; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px;
+      background: rgba(255,255,255,0.12); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin:0 0 18px; font-family:'Playfair Display', serif; font-size: clamp(48px, 8vw, 86px); line-height:1.02; text-wrap: balance;
+    }
+    .lead {
+      margin:0; max-width: 760px; line-height:1.8; font-size: clamp(17px, 2vw, 20px); color: rgba(255,255,255,0.92);
+    }
+    .hero-actions { margin-top: 26px; display:flex; gap:12px; flex-wrap:wrap; }
+    .btn {
+      display:inline-flex; align-items:center; gap:10px; text-decoration:none; border:0; border-radius:999px;
+      padding:14px 18px; font-weight:800; transition: transform .25s ease, background .25s ease; cursor:pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background:white; color: var(--accent); }
+    .btn-secondary { background: rgba(255,255,255,0.12); color:white; border:1px solid rgba(255,255,255,0.18); }
+
+    .hero-grid { display:grid; gap:14px; padding:22px; }
+    .hero-grid h3 { margin:0; font-size:18px; }
+    .mini-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; }
+    .mini-card {
+      min-height:112px; border-radius:20px; padding:14px; background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.16);
+    }
+    .mini-card strong { display:block; margin-bottom:7px; font-size: 15px; }
+    .mini-card span { display:block; line-height:1.45; color: rgba(255,255,255,0.88); font-size:13px; }
+
+    main { max-width:1320px; margin:0 auto; padding:0 22px 80px; }
+
+    .section-head {
+      display:flex; align-items:end; justify-content:space-between; gap:18px; margin: 34px 0 22px;
+    }
+    .section-head h2 { margin:0; font-family:'Playfair Display', serif; font-size: clamp(30px, 4vw, 48px); }
+    .section-head p { max-width: 840px; margin:0; color: var(--muted); line-height: 1.75; }
+
+    .intro-grid {
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; margin-bottom: 36px;
+    }
+    .panel {
+      background: var(--surface); border:1px solid rgba(255,255,255,0.6); border-radius: 28px; box-shadow: var(--shadow); padding: 26px;
+      backdrop-filter: blur(12px);
+    }
+    .stats { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; margin-top: 16px; }
+    .stat {
+      border-radius: 20px; padding: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75)); border:1px solid var(--line);
+    }
+    .stat strong { display:block; font-size: 30px; font-family:'Playfair Display', serif; color: var(--accent); }
+    .stat span { color: var(--muted); font-size:13px; line-height:1.5; }
+
+    .destinations { display:grid; gap: 28px; }
+    .destination {
+      display:grid; grid-template-columns: .92fr 1.08fr; gap:28px;
+      border-radius: 34px; padding: 28px;
+      background: rgba(255,255,255,0.76); border:1px solid rgba(255,255,255,0.74);
+      box-shadow: var(--shadow-lg); backdrop-filter: blur(16px);
+      overflow:hidden;
+    }
+    .destination:nth-child(even) { grid-template-columns: 1.08fr .92fr; }
+    .destination:nth-child(even) .destination-copy { order:1; }
+    .destination:nth-child(even) .destination-media { order:2; }
+
+    .destination-media {
+      display:grid; grid-template-rows: 420px auto; gap:14px;
+    }
+    .main-photo {
+      position:relative; border-radius:28px; overflow:hidden; min-height: 420px; box-shadow: 0 22px 50px rgba(0,0,0,0.16);
+    }
+    .main-photo img {
+      width:100%; height:100%; object-fit:cover; display:block; cursor: zoom-in; transform: scale(1.01); transition: transform .5s ease;
+    }
+    .destination:hover .main-photo img { transform: scale(1.07); }
+    .photo-badge {
+      position:absolute; top:18px; left:18px; padding:10px 14px; border-radius:999px;
+      background: rgba(255,255,255,0.90); color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing:0.05em; text-transform:uppercase;
+    }
+    .thumbs {
+      display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px;
+    }
+    .thumb {
+      position:relative; border-radius:18px; overflow:hidden; height:120px; box-shadow: 0 10px 24px rgba(0,0,0,0.1); cursor:pointer;
+    }
+    .thumb img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease; }
+    .thumb:hover img { transform: scale(1.08); }
+    .thumb span {
+      position:absolute; left:10px; right:10px; bottom:10px; color:white; font-size:12px; font-weight:800;
+      text-shadow:0 2px 18px rgba(0,0,0,0.55);
+    }
+
+    .destination-copy { display:flex; flex-direction:column; }
+    .kicker {
+      display:inline-flex; align-items:center; gap:10px; width:fit-content; margin-bottom:16px;
+      padding:10px 14px; border-radius:999px; background: rgba(178,79,52,0.08); color: var(--accent); text-transform:uppercase; letter-spacing:0.05em; font-weight:800; font-size:12px;
+    }
+    .destination-copy h3 {
+      margin:0 0 14px; font-family:'Playfair Display', serif; font-size: clamp(30px, 4vw, 52px); line-height:1.02;
+    }
+    .destination-copy p { margin:0 0 14px; line-height:1.82; color: #3d322e; }
+    .story-break {
+      display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px; margin: 8px 0 18px;
+    }
+    .story-chip {
+      border-radius:18px; padding:14px 16px; background: rgba(255,255,255,0.82); border:1px solid var(--line);
+    }
+    .story-chip strong { display:block; color: var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom: 6px; }
+    .story-chip span { font-size:14px; line-height:1.55; }
+
+    .guide-subhead {
+      display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 16px 0 10px;
+    }
+    .guide-subhead strong { font-size:18px; }
+    .guide-subhead span { color: var(--muted); font-size:13px; }
+
+    .site-grid {
+      display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px;
+    }
+    .site-card {
+      position:relative; border-radius:20px; background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.78)); border:1px solid var(--line);
+      padding:16px; overflow:hidden;
+    }
+    .site-card::before {
+      content:""; position:absolute; inset:auto -20px -30px auto; width:120px; height:120px; border-radius:50%; background: radial-gradient(circle, rgba(227,156,86,0.16), transparent 65%);
+    }
+    .site-card h4 { margin:0 0 8px; font-size:17px; font-family:'Playfair Display', serif; }
+    .site-card p { margin:0 0 10px; font-size:14px; color: var(--muted); line-height:1.65; }
+    .site-tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .tag { font-size:11px; font-weight:800; padding:8px 10px; border-radius:999px; background: rgba(178,79,52,0.08); color: var(--accent); }
+
+    .accordion-wrap { display:grid; gap:12px; margin-top:18px; }
+    .accordion { border-radius:18px; border:1px solid var(--line); background: rgba(255,255,255,0.82); overflow:hidden; }
+    .accordion button {
+      width:100%; text-align:left; background:transparent; border:0; cursor:pointer; padding:18px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px; font-size:15px; font-weight:800; color: var(--text);
+    }
+    .accordion button .icon {
+      width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background: rgba(178,79,52,0.10); color: var(--accent); transition: transform .25s ease;
+    }
+    .accordion-content { max-height:0; overflow:hidden; transition:max-height .35s ease; padding:0 20px; }
+    .accordion-content p { margin:0; padding:0 0 18px; color: var(--muted); }
+    .accordion.open .icon { transform: rotate(45deg); }
+
+    .quote {
+      margin-top:18px; padding:18px 20px; border-left:4px solid var(--accent-2); background: linear-gradient(90deg, rgba(227,156,86,0.12), rgba(255,255,255,0));
+      border-radius:0 18px 18px 0; font-style: italic; color: #5b4741;
+    }
+
+    .full-gallery {
+      margin-top: 52px; border-radius: 32px; padding: 26px; background: linear-gradient(135deg, rgba(178,79,52,0.95), rgba(227,156,86,0.92)); color: white; box-shadow: var(--shadow-lg);
+    }
+    .full-gallery-head { display:flex; justify-content:space-between; gap:16px; align-items:end; flex-wrap: wrap; }
+    .full-gallery-head h2 { margin:0; font-family:'Playfair Display', serif; font-size: clamp(28px, 3vw, 44px); }
+    .full-gallery-head p { max-width: 740px; margin: 10px 0 0; color: rgba(255,255,255,0.92); line-height:1.75; }
+    .masonry {
+      margin-top: 22px; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px;
+    }
+    .masonry figure {
+      margin:0; border-radius:20px; overflow:hidden; position:relative; min-height:220px; cursor:pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    }
+    .masonry img { width:100%; height:100%; object-fit:cover; display:block; }
+    .masonry figcaption {
+      position:absolute; left:0; right:0; bottom:0; padding:14px 16px; font-size:13px; font-weight:700; color:white;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.68));
+    }
+
+    .finale {
+      margin-top: 54px; display:grid; grid-template-columns: 1.05fr .95fr; gap:18px;
+    }
+    .pill-row { display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px; }
+    .pill { padding:11px 14px; border-radius:999px; background:white; border:1px solid var(--line); font-size:13px; font-weight:800; box-shadow: 0 8px 22px rgba(0,0,0,0.06); }
+
+    .footer { max-width:1320px; margin:32px auto 28px; padding:0 22px; }
+    .footer-card { background: rgba(255,255,255,0.74); border:1px solid rgba(255,255,255,0.74); border-radius:24px; box-shadow: var(--shadow); padding:20px 22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-card p { margin:0; color: var(--muted); }
+
+    .reveal { opacity:0; transform: translateY(26px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity:1; transform: translateY(0); }
+
+    .lightbox {
+      position:fixed; inset:0; z-index:4000; display:none; align-items:center; justify-content:center; padding:26px; background: rgba(10,10,12,0.9);
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img { max-width:min(94vw, 1400px); max-height:88vh; border-radius:24px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+    .lightbox button {
+      position:absolute; top:18px; right:18px; width:48px; height:48px; border-radius:50%; border:0; cursor:pointer; font-size:22px; font-weight:900;
+      background:white;
+    }
+
+    .top-btn {
+      position:fixed; right:18px; bottom:18px; z-index:1800; width:54px; height:54px; border-radius:50%; border:0; cursor:pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:white; font-size:19px; box-shadow: var(--shadow-lg); opacity:0; pointer-events:none; transition: .25s ease;
+    }
+    .top-btn.show { opacity:1; pointer-events:auto; }
+
+    body.dark {
+      --text: #f8efe7;
+      --muted: #cdbdaf;
+      --line: rgba(255,255,255,0.10);
+      --surface: rgba(25,22,20,0.82);
+      --surface-strong: #1c1816;
+      --accent: #ff9a73;
+      --accent-2: #f3bf72;
+      --accent-3: #8fb4b2;
+      --shadow: 0 18px 50px rgba(0,0,0,0.30);
+      --shadow-lg: 0 26px 70px rgba(0,0,0,0.36);
+      --nav-bg: rgba(21,19,18,0.74);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,154,115,0.10), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(143,180,178,0.10), transparent 24%),
+        linear-gradient(180deg, #151210 0%, #1a1715 100%);
+    }
+    body.dark .panel,
+    body.dark .destination,
+    body.dark .footer-card,
+    body.dark .site-card,
+    body.dark .story-chip,
+    body.dark .accordion,
+    body.dark .stat,
+    body.dark .pill,
+    body.dark .theme-btn { background: rgba(27,24,22,0.82); color: var(--text); }
+    body.dark .destination-copy p { color:#ecdccf; }
+    body.dark .site-card p, body.dark .footer-card p, body.dark .section-head p, body.dark .stat span { color: var(--muted); }
+    body.dark .hero::after { background: linear-gradient(180deg, transparent, rgba(21,18,16,0.96)); }
+    body.dark .quote { color:#f0ddd0; }
+
+    @media (max-width: 1120px) {
+      .hero-inner, .intro-grid, .destination, .destination:nth-child(even), .finale { grid-template-columns: 1fr; }
+      .destination:nth-child(even) .destination-copy, .destination:nth-child(even) .destination-media { order: unset; }
+      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .masonry { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 720px) {
+      .mini-grid, .stats, .site-grid, .story-break, .thumbs, .masonry { grid-template-columns: 1fr; }
+      .hero-copy, .hero-grid, .panel, .destination, .full-gallery { padding: 20px; }
+      h1 { font-size: 42px; }
+      .hero { padding-top: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="topbar">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="brand-badge">✦</div>
+        <div>
+          Italy Guide
+          <small>Cinematic luxury travel website</small>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#como">Lake Como</a>
+        <a class="nav-link" href="#tuscany">Tuscany</a>
+        <a class="nav-link" href="#venice">Venice</a>
+        <a class="nav-link" href="#amalfi">Amalfi</a>
+        <a class="nav-link" href="#gallery">Gallery</a>
+      </div>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☼</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner reveal">
+      <section class="hero-copy glass">
+        <div class="eyebrow">Italy • Slow luxury • cinematic travel</div>
+        <h1>Velvet Evenings &amp;<br>Golden Indulgence</h1>
+        <p class="lead">A richer, more eye-catching version of your travel website—with dramatic imagery, a destination guide structure, interactive galleries, and popular landmark highlights for Lake Como, Montalcino, Venice, and Positano.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#overview">Explore the guide ↓</a>
+          <a class="btn btn-secondary" href="#gallery">Open the photo gallery</a>
+        </div>
+      </section>
+
+      <aside class="hero-grid glass">
+        <h3>What’s inside</h3>
+        <div class="mini-grid">
+          <div class="mini-card"><strong>Popular sites</strong><span>Each stop now includes landmark-style highlights and photo-driven cards.</span></div>
+          <div class="mini-card"><strong>Interactive design</strong><span>Sticky nav, theme toggle, image lightbox, accordions, and scroll reveal.</span></div>
+          <div class="mini-card"><strong>Luxury tone</strong><span>Editorial typography, glassmorphism panels, and cinematic color layering.</span></div>
+          <div class="mini-card"><strong>Travel guide feel</strong><span>Story, stay suggestions, practical tips, and visual destination browsing.</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2>Travel guide overview</h2>
+          <p>This version makes the site feel closer to a luxury destination guide: strong visual hierarchy, cinematic destination imagery, landmark-driven highlights, and a polished browsing experience for the four places featured in your Italy piece.</p>
+        </div>
+      </div>
+
+      <div class="intro-grid">
+        <article class="panel">
+          <h3 style="margin:0 0 12px; font-family:'Playfair Display', serif; font-size:32px;">Luxury, but actually useful</h3>
+          <p style="margin:0; line-height:1.82; color:var(--muted);">The design keeps your sensory writing, but adds the browsing behavior travelers expect: a clear entry point, destination sections, popular-site blocks, visual galleries, and quick details that make the page feel immersive instead of static.</p>
+          <div class="stats">
+            <div class="stat"><strong>4</strong><span>featured destinations</span></div>
+            <div class="stat"><strong>14+</strong><span>landmark / site highlights</span></div>
+            <div class="stat"><strong>12</strong><span>click-to-expand images</span></div>
+            <div class="stat"><strong>1</strong><span>cinematic final gallery</span></div>
+          </div>
+        </article>
+        <article class="panel">
+          <h3 style="margin:0 0 12px; font-family:'Playfair Display', serif; font-size:32px;">Signature mood</h3>
+          <p style="margin:0 0 14px; line-height:1.82; color:var(--muted);">Warm terracotta accents, cream backgrounds, deep-shadow cards, and large-format imagery keep the site in “luxury editorial” territory while feeling clean enough to browse on desktop or mobile.</p>
+          <div class="pill-row">
+            <span class="pill">Cinematic imagery</span>
+            <span class="pill">Sticky navigation</span>
+            <span class="pill">Interactive galleries</span>
+            <span class="pill">Destination guide layout</span>
+            <span class="pill">Dark mode</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="destinations">
+      <article class="destination reveal" id="como">
+        <div class="destination-media">
+          <div class="main-photo">
+            <span class="photo-badge">Lake Como • iconic villa</span>
+            <img src="https://fullsuitcase.com/wp-content/uploads/2022/09/Villa-del-Balbianello-in-Lenno-one-of-the-most-famous-villas-of-Lake-Como-Italy.jpg.webp" alt="Villa del Balbianello on Lake Como" data-full="https://fullsuitcase.com/wp-content/uploads/2022/09/Villa-del-Balbianello-in-Lenno-one-of-the-most-famous-villas-of-Lake-Como-Italy.jpg.webp">
+          </div>
+          <div class="thumbs">
+            <div class="thumb"><img src="https://fai-platform.imgix.net/media/lombardia/co/villa-del-balbianello_232998.jpg?crop=fit&w=1440&h=800&auto=format,compress" alt="Villa del Balbianello gardens" data-full="https://fai-platform.imgix.net/media/lombardia/co/villa-del-balbianello_232998.jpg?crop=fit&w=1440&h=800&auto=format,compress"><span>Villa del Balbianello</span></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=80" alt="Lake Como panoramic view" data-full="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80"><span>Lake views</span></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=80" alt="Bellagio style lakeside architecture" data-full="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1800&q=80"><span>Bellagio mood</span></div>
+          </div>
+        </div>
+
+        <div class="destination-copy">
+          <div class="kicker">Lake Como</div>
+          <h3>Villa d’Este &amp; the villas of the lake</h3>
+          <p>You wake to still water, soft light, and the kind of silence that makes espresso feel ceremonial. Lake Como in your story has always been about polished calm, but in this version the page leans into the places that visually define the area—its lakefront villas, terraced gardens, and cinematic shoreline.</p>
+          <p>It keeps the Villa d’Este mood from your narrative and adds landmark browsing so the section feels more like a destination page than a diary entry.</p>
+
+          <div class="story-break">
+            <div class="story-chip"><strong>Stay</strong><span>Villa d’Este in Cernobbio</span></div>
+            <div class="story-chip"><strong>Best moment</strong><span>Sunrise over still water</span></div>
+            <div class="story-chip"><strong>Ideal pace</strong><span>Slow afternoon + golden hour</span></div>
+          </div>
+
+          <div class="guide-subhead"><strong>Popular Lake Como sights</strong><span>Photo-led highlights</span></div>
+          <div class="site-grid">
+            <div class="site-card"><h4>Villa del Balbianello</h4><p>The villa appears prominently in Lake Como results, including official visit information and multiple travel guides, and is highlighted as one of the lake’s most photographed and most visited sites.</p><div class="site-tags"><span class="tag">Iconic villa</span><span class="tag">Boat arrival</span><span class="tag">Gardens</span></div></div>
+            <div class="site-card"><h4>Villa Carlotta</h4><p>Tripadvisor’s Lake Como landmarks list places Villa Carlotta among the top sights, alongside lakeside gardens and historic villa experiences.</p><div class="site-tags"><span class="tag">Gardens</span><span class="tag">Historic villa</span><span class="tag">Lakeside stop</span></div></div>
+            <div class="site-card"><h4>I Giardini di Villa Melzi</h4><p>Lake Como landmarks coverage includes Villa Melzi gardens as one of the area’s notable scenic stops.</p><div class="site-tags"><span class="tag">Bellagio</span><span class="tag">Gardens</span><span class="tag">Photo walk</span></div></div>
+            <div class="site-card"><h4>Como Cathedral</h4><p>Major landmarks roundups for the lake also include the cathedral in Como town as a notable historic stop if you want an urban contrast to the villa circuit.</p><div class="site-tags"><span class="tag">Town center</span><span class="tag">Historic</span><span class="tag">Architecture</span></div></div>
+          </div>
+
+          <div class="accordion-wrap">
+            <div class="accordion"><button type="button"><span>Practical tip</span><span class="icon">＋</span></button><div class="accordion-content"><p>Book a lake-view room and arrive early enough to wander the grounds before dinner. The section is designed around that exact “first evening” feeling from your original piece.</p></div></div>
+            <div class="accordion"><button type="button"><span>Hidden gem</span><span class="icon">＋</span></button><div class="accordion-content"><p>The site retains your sunset boat transfer idea and frames it visually around Villa del Balbianello so it feels like part of a genuine Lake Como guide.</p></div></div>
+          </div>
+
+          <div class="quote">“When was the last time you allowed yourself to simply sit and absorb a moment without rushing?”</div>
+        </div>
+      </article>
+
+      <article class="destination reveal" id="tuscany">
+        <div class="destination-media">
+          <div class="main-photo">
+            <span class="photo-badge">Tuscany • vineyard country</span>
+            <img src="https://kated.com/wp-content/uploads/2020/03/Ita53a-Tuscany-Vineyards-Italy.jpg" alt="Vineyards in Val d'Orcia near Montalcino" data-full="https://kated.com/wp-content/uploads/2020/03/Ita53a-Tuscany-Vineyards-Italy.jpg">
+          </div>
+          <div class="thumbs">
+            <div class="thumb"><img src="https://www.ballooningintuscany.com/wp-content/uploads/2019/11/Montalcino-landscape.jpg" alt="Montalcino landscape" data-full="https://www.ballooningintuscany.com/wp-content/uploads/2019/11/Montalcino-landscape.jpg"><span>Montalcino landscape</span></div>
+            <div class="thumb"><img src="https://c8.alamy.com/comp/HHN6AB/tuscany-montalcino-italian-medieval-village-fortress-and-church-view-HHN6AB.jpg" alt="Montalcino fortress" data-full="https://c8.alamy.com/comp/HHN6AB/tuscany-montalcino-italian-medieval-village-fortress-and-church-view-HHN6AB.jpg"><span>Fortress &amp; old town</span></div>
+            <div class="thumb"><img src="https://www.artviva.com/wp-content/uploads/2024/12/Brunello-Resize.jpg" alt="Val d'Orcia Brunello countryside" data-full="https://www.artviva.com/wp-content/uploads/2024/12/Brunello-Resize.jpg"><span>Brunello country</span></div>
+          </div>
+        </div>
+
+        <div class="destination-copy">
+          <div class="kicker">Tuscany</div>
+          <h3>Montalcino, Brunello, and the Val d’Orcia hills</h3>
+          <p>The original Tuscany section already had excellent atmosphere—oak barrels, long pours, stories told glass by glass. Here, that same scene becomes a guide page built around the landmarks and landscapes people associate with Montalcino: the citadel, piazzas, surrounding vineyards, and the nearby Abbey of Sant’Antimo.</p>
+          <p>Instead of feeling like only “wine tasting,” the section now feels like a fuller base for exploring town, countryside, and grand vineyard views.</p>
+
+          <div class="story-break">
+            <div class="story-chip"><strong>Stay</strong><span>Castiglion del Bosco</span></div>
+            <div class="story-chip"><strong>Signature taste</strong><span>Brunello di Montalcino</span></div>
+            <div class="story-chip"><strong>Landscape</strong><span>Val d’Orcia hills</span></div>
+          </div>
+
+          <div class="guide-subhead"><strong>Popular Montalcino sights</strong><span>Town + countryside highlights</span></div>
+          <div class="site-grid">
+            <div class="site-card"><h4>Fortress / citadel</h4><p>Visit Tuscany describes the historic center as dominated by its imposing citadel, and multiple Montalcino guides point to the fortress as one of the main things to see in town.</p><div class="site-tags"><span class="tag">Historic center</span><span class="tag">Views</span><span class="tag">Medieval</span></div></div>
+            <div class="site-card"><h4>Piazza del Popolo</h4><p>Visit Tuscany lists Piazza del Popolo as Montalcino’s main square, with the town hall and bell tower forming part of the classic old-town experience.</p><div class="site-tags"><span class="tag">Main square</span><span class="tag">Bell tower</span><span class="tag">Old town</span></div></div>
+            <div class="site-card"><h4>Abbey of Sant’Antimo</h4><p>Visit Tuscany identifies the abbey near Castelnuovo dell’Abate as one of the standout nearby sights worth visiting from Montalcino.</p><div class="site-tags"><span class="tag">Romanesque</span><span class="tag">Nearby excursion</span><span class="tag">Scenic drive</span></div></div>
+            <div class="site-card"><h4>Brunello vineyards</h4><p>Travel guides and attraction roundups consistently frame wine tasting and the surrounding vineyards as the top Montalcino experience.</p><div class="site-tags"><span class="tag">Wine tasting</span><span class="tag">Val d’Orcia</span><span class="tag">Sunset views</span></div></div>
+          </div>
+
+          <div class="accordion-wrap">
+            <div class="accordion"><button type="button"><span>Practical tip</span><span class="icon">＋</span></button><div class="accordion-content"><p>This section keeps your “private tasting” recommendation but surrounds it with town-and-landscape inspiration so the destination feels broader and more aspirational.</p></div></div>
+            <div class="accordion"><button type="button"><span>Hidden gem</span><span class="icon">＋</span></button><div class="accordion-content"><p>Poggio Antico remains in the guide as the sunset tasting suggestion because it aligns perfectly with the cinematic hill-country mood of the rest of the site.</p></div></div>
+          </div>
+
+          <div class="quote">“What does luxury mean to you—exclusivity, or connection?”</div>
+        </div>
+      </article>
+
+      <article class="destination reveal" id="venice">
+        <div class="destination-media">
+          <div class="main-photo">
+            <span class="photo-badge">Venice • Grand Canal</span>
+            <img src="https://plus.unsplash.com/premium_photo-1664299077118-e310ce32096d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rialto Bridge illuminated at night" data-full="https://plus.unsplash.com/premium_photo-1664299077118-e310ce32096d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+          </div>
+          <div class="thumbs">
+            <div class="thumb"><img src="https://traveldigg.com/wp-content/uploads/2016/06/Grand-Canal-Venice-Italy.jpg" alt="Grand Canal and Santa Maria della Salute" data-full="https://traveldigg.com/wp-content/uploads/2016/06/Grand-Canal-Venice-Italy.jpg"><span>Grand Canal</span></div>
+            <div class="thumb"><img src="https://cdn.pixabay.com/photo/2017/11/12/01/54/rialto-bridge-2941322_1280.jpg" alt="Rialto Bridge and gondolas" data-full="https://cdn.pixabay.com/photo/2017/11/12/01/54/rialto-bridge-2941322_1280.jpg"><span>Rialto Bridge</span></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1400&q=80" alt="Venice canal evening mood" data-full="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1800&q=80"><span>Canal light</span></div>
+          </div>
+        </div>
+
+        <div class="destination-copy">
+          <div class="kicker">Venice</div>
+          <h3>Aman Venice, canals, and the city’s classic icons</h3>
+          <p>Your Venice writing already had the right tone—frescoed rooms, gondoliers calling below, candlelight and polished wood. To make the section work like a true travel website, it now pairs that mood with the landmarks that dominate first-time Venice itineraries: St. Mark’s Square, St. Mark’s Basilica, Doge’s Palace, the Grand Canal, and the Rialto Bridge.</p>
+          <p>The result feels more complete and easier to browse: a luxury stay wrapped around the city’s essential visual anchors.</p>
+
+          <div class="story-break">
+            <div class="story-chip"><strong>Stay</strong><span>Aman Venice</span></div>
+            <div class="story-chip"><strong>Signature scene</strong><span>Canal-facing suite</span></div>
+            <div class="story-chip"><strong>Best atmosphere</strong><span>Candlelit evening</span></div>
+          </div>
+
+          <div class="guide-subhead"><strong>Popular Venice sights</strong><span>Core landmarks for visual browsing</span></div>
+          <div class="site-grid">
+            <div class="site-card"><h4>St. Mark’s Square</h4><p>Venice landmark guides treat St. Mark’s Square as one of the city’s most iconic places, surrounded by major monuments and central to most itineraries.</p><div class="site-tags"><span class="tag">Piazza</span><span class="tag">City icon</span><span class="tag">First-timer stop</span></div></div>
+            <div class="site-card"><h4>St. Mark’s Basilica</h4><p>Guides emphasize the basilica for its golden mosaics and status as one of Venice’s signature landmarks.</p><div class="site-tags"><span class="tag">Golden mosaics</span><span class="tag">Byzantine style</span><span class="tag">San Marco</span></div></div>
+            <div class="site-card"><h4>Doge’s Palace</h4><p>Major Venice roundups include Doge’s Palace among the top landmarks near the waterfront and San Marco area.</p><div class="site-tags"><span class="tag">Palace</span><span class="tag">Gothic</span><span class="tag">Historic power</span></div></div>
+            <div class="site-card"><h4>Rialto Bridge + Grand Canal</h4><p>Landmark lists repeatedly call out the Rialto Bridge and the Grand Canal as essential visual experiences in Venice.</p><div class="site-tags"><span class="tag">Bridge</span><span class="tag">Gondolas</span><span class="tag">Grand Canal</span></div></div>
+          </div>
+
+          <div class="accordion-wrap">
+            <div class="accordion"><button type="button"><span>Practical tip</span><span class="icon">＋</span></button><div class="accordion-content"><p>The guide keeps your canal-facing room recommendation because the visual identity of Venice on this page is built around looking out onto water, movement, and reflected light.</p></div></div>
+            <div class="accordion"><button type="button"><span>Hidden gem</span><span class="icon">＋</span></button><div class="accordion-content"><p>The private garden from your original Aman Venice section remains as the quieter counterpoint to the stronger landmark-heavy visuals elsewhere in the city.</p></div></div>
+          </div>
+
+          <div class="quote">“How often do we allow ourselves to experience beauty without distraction?”</div>
+        </div>
+      </article>
+
+      <article class="destination reveal" id="amalfi">
+        <div class="destination-media">
+          <div class="main-photo">
+            <span class="photo-badge">Positano • Le Sirenuse</span>
+            <img src="https://sirenuse.it/media/15tpqcr1/le-sirenuse_aldos-bar_9034.jpg?anchor=center&mode=crop&width=768&height=576&rnd=132587235247200000" alt="Le Sirenuse balcony view over Positano" data-full="https://sirenuse.it/media/15tpqcr1/le-sirenuse_aldos-bar_9034.jpg?anchor=center&mode=crop&width=768&height=576&rnd=132587235247200000">
+          </div>
+          <div class="thumbs">
+            <div class="thumb"><img src="https://images.squarespace-cdn.com/content/v1/5e300211d98f3f2f0319634e/1625187193759-STP26ODJK181U6OZ0LLX/le-sirenuse_francos-bar_0375.jpg" alt="Franco's Bar terrace" data-full="https://images.squarespace-cdn.com/content/v1/5e300211d98f3f2f0319634e/1625187193759-STP26ODJK181U6OZ0LLX/le-sirenuse_francos-bar_0375.jpg"><span>Franco’s Bar</span></div>
+            <div class="thumb"><img src="https://media.istockphoto.com/id/1306560568/photo/the-town-of-positano-from-the-gods-path-between-positano-and-amalfi-on-the-amalfitan-coast-in.jpg?s=1024x1024&w=is&k=20&c=MBWQQs0bMU7KP3h3hdwk9QWghuK8M9cA--jCq6sNuBI=" alt="Positano from Path of the Gods" data-full="https://media.istockphoto.com/id/1306560568/photo/the-town-of-positano-from-the-gods-path-between-positano-and-amalfi-on-the-amalfitan-coast-in.jpg?s=1024x1024&w=is&k=20&c=MBWQQs0bMU7KP3h3hdwk9QWghuK8M9cA--jCq6sNuBI="><span>Path of the Gods</span></div>
+            <div class="thumb"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/8b/64/f0/welcome-to-le-sirenuse.jpg?w=1200&h=-1&s=1" alt="Le Sirenuse exterior at Positano" data-full="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/8b/64/f0/welcome-to-le-sirenuse.jpg?w=1200&h=-1&s=1"><span>Le Sirenuse</span></div>
+          </div>
+        </div>
+
+        <div class="destination-copy">
+          <div class="kicker">Amalfi Coast</div>
+          <h3>Le Sirenuse, Positano, and the coast’s dream views</h3>
+          <p>This is where the website gets the most openly dramatic. Positano already reads like a painting in your original story, so the refreshed section amplifies that with stronger visuals and landmark signals: Le Sirenuse, Franco’s Bar, the town’s steep architectural profile, and the Path of the Gods outlook over the coast.</p>
+          <p>It reads like a luxury coastal guide while still holding onto the slower breakfast-on-the-balcony emotion from your piece.</p>
+
+          <div class="story-break">
+            <div class="story-chip"><strong>Stay</strong><span>Le Sirenuse</span></div>
+            <div class="story-chip"><strong>Golden-hour move</strong><span>Drinks at Franco’s Bar</span></div>
+            <div class="story-chip"><strong>Classic view</strong><span>Positano from above</span></div>
+          </div>
+
+          <div class="guide-subhead"><strong>Popular Positano / Amalfi sights</strong><span>Coastal highlights with photos</span></div>
+          <div class="site-grid">
+            <div class="site-card"><h4>Franco’s Bar</h4><p>The bar’s official page describes it as an al fresco bar in Positano suspended above the sea, while rooftop guides position it as a prime sunset drinks spot.</p><div class="site-tags"><span class="tag">Aperitivo</span><span class="tag">Sunset drinks</span><span class="tag">Design icon</span></div></div>
+            <div class="site-card"><h4>Le Sirenuse</h4><p>The hotel’s official site presents Le Sirenuse as a distinguished luxury boutique hotel in Positano, and many travel visuals revolve around its terraces and sea views.</p><div class="site-tags"><span class="tag">Luxury hotel</span><span class="tag">Sea view</span><span class="tag">Positano landmark</span></div></div>
+            <div class="site-card"><h4>Path of the Gods</h4><p>Photo and hiking coverage uses the Path of the Gods viewpoint as one of the classic elevated panoramas over Positano and the Amalfi Coast.</p><div class="site-tags"><span class="tag">Hiking view</span><span class="tag">Coast panorama</span><span class="tag">Cliffside</span></div></div>
+            <div class="site-card"><h4>Santa Maria Assunta + town profile</h4><p>Positano guides point to the majolica-tiled dome of Santa Maria Assunta as one of the town’s defining visual features visible throughout Positano.</p><div class="site-tags"><span class="tag">Church dome</span><span class="tag">Town icon</span><span class="tag">Historic center</span></div></div>
+          </div>
+
+          <div class="accordion-wrap">
+            <div class="accordion"><button type="button"><span>Practical tip</span><span class="icon">＋</span></button><div class="accordion-content"><p>The site keeps your “May or September” suggestion because shoulder season fits the warm-weather, lower-crowd positioning of this Positano section.</p></div></div>
+            <div class="accordion"><button type="button"><span>Hidden gem</span><span class="icon">＋</span></button><div class="accordion-content"><p>Franco’s Bar remains the clear hidden-gem-style recommendation because it bridges your original narrative and the visual identity of the new site perfectly.</p></div></div>
+          </div>
+
+          <div class="quote">“What place have you visited that made you lose track of time entirely?”</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="full-gallery reveal" id="gallery">
+      <div class="full-gallery-head">
+        <div>
+          <h2>Cinematic destination gallery</h2>
+          <p>A fuller gallery section makes the site feel more like a real travel brand homepage. The image mix leans into the most recognizable visual cues from each destination: villas and lake reflections, vineyards and fortress views, canals and bridges, terraces and cliffside panoramas.</p>
+        </div>
+      </div>
+      <div class="masonry">
+        <figure><img src="https://fullsuitcase.com/wp-content/uploads/2022/11/Villa-del-Balbianello-and-gardens-as-seen-from-the-lakeside.jpg" alt="Lake Como villa" data-full="https://fullsuitcase.com/wp-content/uploads/2022/11/Villa-del-Balbianello-and-gardens-as-seen-from-the-lakeside.jpg"><figcaption>Lake Como • Villa del Balbianello</figcaption></figure>
+        <figure><img src="https://www.ballooningintuscany.com/wp-content/uploads/2019/11/Montalcino-landscape.jpg" alt="Montalcino hills" data-full="https://www.ballooningintuscany.com/wp-content/uploads/2019/11/Montalcino-landscape.jpg"><figcaption>Montalcino • Val d’Orcia landscape</figcaption></figure>
+        <figure><img src="https://plus.unsplash.com/premium_photo-1664299077118-e310ce32096d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rialto Bridge night" data-full="https://plus.unsplash.com/premium_photo-1664299077118-e310ce32096d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><figcaption>Venice • Rialto Bridge</figcaption></figure>
+        <figure><img src="https://images.squarespace-cdn.com/content/v1/5e300211d98f3f2f0319634e/1625187193759-STP26ODJK181U6OZ0LLX/le-sirenuse_francos-bar_0375.jpg" alt="Franco's Bar Positano" data-full="https://images.squarespace-cdn.com/content/v1/5e300211d98f3f2f0319634e/1625187193759-STP26ODJK181U6OZ0LLX/le-sirenuse_francos-bar_0375.jpg"><figcaption>Positano • Franco’s Bar</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="finale reveal">
+      <article class="panel">
+        <h3 style="margin:0 0 12px; font-family:'Playfair Display', serif; font-size: 36px;">The luxury that lingers</h3>
+        <p style="margin:0; line-height:1.82; color:var(--muted);">The strongest part of your writing has always been the sense of presence: the quiet after sunrise, the texture of old interiors, the glow of a terrace at dusk. This version keeps that feeling but turns the site into something much more eye-catching and browseable.</p>
+        <div class="pill-row">
+          <span class="pill">Lake Como villas</span>
+          <span class="pill">Brunello vineyards</span>
+          <span class="pill">Grand Canal icons</span>
+          <span class="pill">Positano terraces</span>
+        </div>
+      </article>
+      <article class="panel">
+        <h3 style="margin:0 0 12px; font-family:'Playfair Display', serif; font-size: 36px;">Built to feel premium</h3>
+        <p style="margin:0 0 14px; line-height:1.82; color:var(--muted);">The page now includes cinematic gallery behavior, visual landmark cards, dark mode, scroll effects, and a stronger editorial layout. In short: much more “best travel website” energy.</p>
+        <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.9;">
+          <li>larger image-led destination sections</li>
+          <li>landmark-style photo browsing</li>
+          <li>interactive lightbox and accordions</li>
+          <li>full gallery section at the end</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-card">
+      <div>
+        <strong>Italy Luxury Travel Guide — Cinematic Edition</strong>
+        <p>Designed as an eye-catching travel guide website with photo-led sections and interactive browsing.</p>
+      </div>
+      <p>Created from your Italy PDF narrative and expanded into a richer visual destination experience.</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button id="lightboxClose" aria-label="Close image">×</button>
+    <img id="lightboxImage" src="" alt="Expanded travel image">
+  </div>
+
+  <button class="top-btn" id="topBtn" aria-label="Back to top">↑</button>
+
+  <script>
+    const progress = document.getElementById('progress');
+    const topBtn = document.getElementById('topBtn');
+    const links = [...document.querySelectorAll('.nav-link')];
+    const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progress.style.width = pct + '%';
+      topBtn.classList.toggle('show', scrollTop > 450);
+    };
+    updateProgress();
+    window.addEventListener('scroll', updateProgress);
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (entry.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.52 });
+    sections.forEach(section => sectionObserver.observe(section));
+
+    document.querySelectorAll('.accordion').forEach(acc => {
+      const btn = acc.querySelector('button');
+      const content = acc.querySelector('.accordion-content');
+      btn.addEventListener('click', () => {
+        const open = acc.classList.contains('open');
+        acc.classList.toggle('open', !open);
+        content.style.maxHeight = open ? '0px' : (content.scrollHeight + 10) + 'px';
+      });
+    });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    document.querySelectorAll('[data-full]').forEach(el => {
+      el.addEventListener('click', () => {
+        lightboxImage.src = el.getAttribute('data-full');
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+    }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('italy-cinematic-theme');
+    if (savedTheme === 'dark') document.body.classList.add('dark');
+    themeToggle.textContent = document.body.classList.contains('dark') ? '☾' : '☼';
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const dark = document.body.classList.contains('dark');
+      localStorage.setItem('italy-cinematic-theme', dark ? 'dark' : 'light');
+      themeToggle.textContent = dark ? '☾' : '☼';
+    });
+  </script>
+</body>
+</html>
